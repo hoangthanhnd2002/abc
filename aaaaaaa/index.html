@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Gửi em!</title>
+</head>
+<body>
+    
+    <div class="wrapper">
+        <div class="loader">
+            <div class="cardHover">
+                <div class="inner one" style="--i:1;"></div>
+                <div class="inner two" style="--i:1;"></div>
+                <div class="inner three" style="--i:1;"></div>
+                <div class="box-heart">
+                    <div class="heart"></div>
+                    
+                </div>
+            </div>
+        </div>
+        <button><p>Click vào đây nè:)))</p></button>
+        <div class="content">
+            <i class="fa-solid fa-xmark"></i>
+            <h1>Gửi em!</h1>
+            <p>No cap vì em chính là nội dung
+            </p>
+        </div>
+    </div>
+    <div class="leaf-container">
+        <img src="a.jpg" alt="Leaf 1">
+        <img src="heart.png" alt="Leaf 2">
+        <img src="bgr.jpg" alt="Leaf 3">
+        <img src="a.jpg" alt="Leaf 4">
+        <img src="heart.png" alt="Leaf 5">
+        <img src="bgr.jpg" alt="Leaf 6">
+    </div>
+</body>
+<script type="text/javascript" src="vanilla-tilt.js"></script>
+<script>
+    VanillaTilt.init(document.querySelector(".wrapper"), {
+		max: 25,
+		speed: 400,
+        glare: true,
+        "max-glare": 0.25,
+        gyroscopeMinAngleX: -45,
+	});
+	var btn =document.querySelector("button")
+    var closeBtn = document.querySelector(".fa-xmark");
+    btn.addEventListener("click", ()=>{
+        document.querySelector(".wrapper").classList.add("active")
+        btn.style.display="none";
+    })
+    closeBtn.addEventListener("click", ()=>{
+        document.querySelector(".wrapper").classList.remove("active")
+        btn.style.display = "block";
+    })
+    function createFallingLeaves() {
+        const leafContainer = document.querySelector(".leaf-container");
+
+        // Kiểm tra nếu đã có đủ 10 lá rơi thì không tạo thêm
+        if (leafContainer.children.length >= 10) {
+            return;
+        }
+
+        // Tạo các lá rơi
+        for (let i = 0; i < 10; i++) {
+            const leafImg = document.createElement("img");
+            // Đặt hình ảnh lá ở đây (có thể thay đổi tùy ý)
+            const leafImages = ["a.jpg", "heart.png", "bgr.jpg"]; // Danh sách các hình ảnh lá có thể thay đổi
+            const randomLeafImage = leafImages[Math.floor(Math.random() * leafImages.length)];
+            leafImg.src = randomLeafImage;
+
+            // Thiết lập các thuộc tính của lá rơi
+            leafImg.classList.add("falling-leaf");
+            leafImg.style.left = Math.random() * 100 + "vw"; // Vị trí x ngẫu nhiên
+            leafImg.style.animationDuration = Math.random() * 5 + 5 + "s"; // Thời gian hiệu ứng ngẫu nhiên
+
+            // Xóa lá khỏi DOM sau khi hoàn thành hiệu ứng
+            leafImg.addEventListener("animationend", () => {
+                leafContainer.removeChild(leafImg);
+            });
+
+            // Thêm lá vào container
+            leafContainer.appendChild(leafImg);
+        }
+    }
+
+    // Gọi hàm tạo lá rơi mỗi 100ms (10 lá/s)
+    setInterval(createFallingLeaves, 100);
+
+  
+</script>
+</html>
